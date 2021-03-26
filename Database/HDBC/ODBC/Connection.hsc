@@ -117,7 +117,7 @@ mkConn args iconn = withDbcOrDie iconn $ \cconn ->
        clientname <- peekCStringLen (pbuf, fromIntegral len)
 
        sqlGetInfo cconn #{const SQL_TXN_CAPABLE} (castPtr psqlusmallint)
-                      #{size SQLUSMALLINT} nullPt
+                      #{size SQLUSMALLINT} nullPtr
          >>= checkError "sqlGetInfo SQL_TXN_CAPABLE" (DbcHandle cconn)
        txninfo <- ((peek psqlusmallint)::IO (#{type SQLUSMALLINT}))
        let txnsupport = txninfo /= #{const SQL_TC_NONE}
